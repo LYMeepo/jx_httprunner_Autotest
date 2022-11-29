@@ -1,0 +1,9 @@
+__pycache__/*
+*.pyc
+.python-version
+.idea
+har
+#templates/reports/*
+#logs/*
+#script/*
+#env

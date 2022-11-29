@@ -1,0 +1,5 @@
+{
+    "api":[
+        "api\\home\\sensor_sensorInfo_getSensorBasicInfo.yml"
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "testcase":[
+        "testcases/group_testcases.yml",
+        "testcases/sensorAccess_testcases.yml"
+    ]
+}

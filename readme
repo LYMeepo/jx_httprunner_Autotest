@@ -1,0 +1,31 @@
+基于httprunner+flask的接口自动化测试平台
+
+api 文件夹：存储接口定义描述,用例的数据，用例的执行逻辑，以yaml文件的形式展现，保存的是一个接口的最小执行单元
+
+env 文件夹: 存放不同测试环境的配置文件，用于切换,此配置文件是用于httprunner的
+
+har 文件夹：存放Charles、fiddler生成的har文件
+
+reports 文件夹：默认测试报告生成的位置
+
+script 文件夹： 将har放入old_har文件夹中，执行har_to_yml文件，会在old_yml中生成对应的yml文件，然后将yml文件放入api文件夹中
+
+static 文件夹： 存放css、js、image文件
+
+templates 文件夹：存放html文件，reports文件夹存放平台自动化执行后生成的测试报告,保存所有报告但只展示最新的6个报告
+
+testcases 文件夹：存放测试用例
+
+testsuites 文件夹：测试场景套件
+
+.env文件：存储项目环境变量，通常用于存储项目敏感信息，调试自动化时使用的此配置文件
+
+.gitignore：git commit忽略文件
+
+app.py: 平台执行入口，python app.py
+
+debugtalk.py：存储项目中逻辑运算辅助函数，如:验签或者生成随机函数
+
+har_to_yml.py： 将har转换为yml文件
+
+httprunner.log: 存放httprunner执行日志， 下次执行时会重写

@@ -1,0 +1,8 @@
+config:
+    name: 物联平台
+    setup_hooks:
+        - ${sleep(3)}
+testcases:
+-
+    name: 调试
+    testcase: testcases/debug.yml

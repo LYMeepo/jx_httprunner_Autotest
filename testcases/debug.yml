@@ -1,0 +1,11 @@
+
+config:
+    name: "首页"
+
+teststeps:
+-
+    name: 百度
+    api: api\baidu.yml
+
+
+
