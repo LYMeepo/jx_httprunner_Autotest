@@ -6,56 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href=" {{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>        
+<body>
+{% set title='测试报告.' %}
+{% include "nav.html" %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="/">测试报告.</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-                <li class="dropdown nav-item"><a href="/hruntest" class="nav-link icon d-flex align-items-center">自动化执行</a></li>
-                <li class="dropdown nav-item"><a href="/log" class="nav-link icon d-flex align-items-center">执行日志</a></li>
-                <li class="dropdown nav-item"><a href="/reports" class="nav-link icon d-flex align-items-center">测试报告</a></li>
-                <li class="dropdown nav-item"><a href="/env_manager" class="nav-link icon d-flex align-items-center">配置管理</a></li>
-            </ul>
-	      </div>
-		  </div>
-	  </nav>
+<section class="hero-wrap" style="background-image: url(../static/images/bg_1.jpg);"
+         data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row description align-items-center justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="text" id="reports">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-
-	<section class="hero-wrap" style="background-image: url(../static/images/bg_1.jpg);" data-stellar-background-ratio="0.5">
-  		<div class="overlay"></div>
-  		<div class="container">
-  			<div class="row description align-items-center justify-content-center">
-  				<div class="col-md-8 text-center">
-  					<div class="text" id="reports">
-
-
-  					</div>
-  				</div>
-  			</div>
-  		</div>
-  	</section>
-
-</body>    
+</body>
 </html>
 <script type="text/javascript">
-		var reports = {{reports|tojson}}
-		var div = document.getElementById("reports")
-        var a = ""
-		a+="<form method=\"post\" action=\"/report\">"
-        var num = 0;
-		var show_num = 6
-        if(reports.length > show_num){
-               num = reports.length - show_num
-        }
-		for(var i = num; i < reports.length; i++){
-			a+="<input type=\"submit\" name=\"btn\" value=\"" + reports[i] + "\" class=\"btn btn-dark px-5 py-4 mb-2\">"
-			a+="<br>"
-		}
-		a+="</form>"
-		div.innerHTML=a
+    var reports =
+    {{reports|tojson}}
+    var div = document.getElementById("reports")
+    var a = ""
+    a += "<form method=\"post\" action=\"{{ path }}/report\">"
+    var num = 0;
+    var show_num = 6
+    if (reports.length > show_num) {
+        num = reports.length - show_num
+    }
+    for (var i = num; i < reports.length; i++) {
+        a += "<input type=\"submit\" name=\"btn\" value=\"" + reports[i] + "\" class=\"btn btn-dark px-5 py-4 mb-2\">"
+        a += "<br>"
+    }
+    a += "</form>"
+    div.innerHTML = a
 </script>

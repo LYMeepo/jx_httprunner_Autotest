@@ -9,98 +9,116 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 log = ""
 reports_dir = os.sep.join(['templates', 'reports'])
 executor = ThreadPoolExecutor(1)
+path = ""
 
 
-@app.route('/')
+@app.route(path + '/')
 def index():
-    return render_template(r'index.html')
+    templateData = {"path": path}
+    return render_template(r'index.html', **templateData)
 
 
-@app.route('/hruntest', methods=["GET"])
+@app.route(path + '/hruntest', methods=["GET"])
 def hruntest():
-    templateData = {"envs": get_envs()
+    templateData = {"envs": get_envs(),
+                    "path": path
                     }
 
     return render_template(r'hruntest.html', **templateData)
 
 
-@app.route('/hruntest_success', methods=["POST"])
+@app.route(path + '/hruntest_success', methods=["POST"])
 def hruntest_success():
+    templateData = {"path": path,
+                    "clew": "执行成功"}
     sel_env = request.form.get('sel_env')
     switch_env(sel_env)
     time.sleep(1)
     hrun_start(sel_env)
-    return render_template(r'hruntest_success.html')
+    return render_template(r'success.html', **templateData)
 
 
-@app.route('/log')
+@app.route(path + '/log')
 def log():
-    templateData = {'log': log
+    templateData = {'log': log,
+                    "path": path
                     }
     return render_template(r'log.html', **templateData)
 
 
-@app.route('/reports', methods=["GET", "POST"])
+@app.route(path + '/reports', methods=["GET", "POST"])
 def reports():
     reports = []
     for file_name in os.listdir(reports_dir):
         reports.append(file_name)
 
-    templateData = {"reports": reports
+    templateData = {"reports": reports,
+                    "path": path
                     }
     return render_template(r'reports.html', **templateData)
 
 
-@app.route('/report', methods=["GET", "POST"])
+@app.route(path + '/report', methods=["GET", "POST"])
 def report():
     btn = request.form.get('btn')
-    return render_template(r'reports/' + btn)
+    templateData = {"path": path}
+    return render_template(r'reports/' + btn, **templateData)
 
 
-@app.route('/env_manager', methods=["GET"])
+@app.route(path + '/env_manager', methods=["GET"])
 def env_manager():
-    return render_template(r'env_manager.html')
+    templateData = {"path": path}
+    return render_template(r'env_manager.html', **templateData)
 
 
-@app.route('/addenv', methods=["GET"])
+@app.route(path + '/addenv', methods=["GET"])
 def addenv():
-    return render_template(r'addenv.html')
+    templateData = {"path": path}
+    return render_template(r'addenv.html', **templateData)
 
 
-@app.route('/addenv_success', methods=["POST"])
+@app.route(path + '/addenv_success', methods=["POST"])
 def addenv_success():
+    templateData = {"path": path,
+                    "clew": "添加成功"}
     env_name = request.form.get('env_name')
     env_content = request.form.get('env_content')
     add_env_file(env_content, env_name)
 
-    return render_template(r'addenv_success.html')
+    return render_template(r'success.html', **templateData)
 
-@app.route('/delete_env', methods=["GET"])
+
+@app.route(path + '/delete_env', methods=["GET"])
 def delete_env():
-    templateData = {"envs": get_envs()
+    templateData = {"envs": get_envs(),
+                    "path": path
                     }
-    return render_template(r'delete_env.html',**templateData)
+    return render_template(r'delete_env.html', **templateData)
 
 
-@app.route('/delete_env_success', methods=["POST"])
+@app.route(path + '/delete_env_success', methods=["POST"])
 def delete_env_success():
+    templateData = {"path": path,
+                    "clew": "删除成功"}
     env_name = request.form.get('sel_env')
     delete_env_file(env_name)
-    return render_template(r'delete_env_success.html')
+    return render_template(r'success.html', **templateData)
 
 
-@app.route('/env_detail_sel', methods=["GET"])
+@app.route(path + '/env_detail_sel', methods=["GET"])
 def env_detail_sel():
-    templateData = {"envs": get_envs()
+    templateData = {"envs": get_envs(),
+                    "path": path
                     }
-    return render_template(r'env_detail_sel.html',**templateData)
+    return render_template(r'env_detail_sel.html', **templateData)
 
 
-@app.route('/env_detail', methods=["POST"])
+@app.route(path + '/env_detail', methods=["POST"])
 def env_detail():
     sel_env = request.form.get('sel_env')
     env_detail_str = get_env_detail(sel_env)
-    templateData = {"env_detail_str": env_detail_str
+    templateData = {"env_detail_str": env_detail_str,
+                    "path": path
                     }
 
     return render_template(r'env_detail.html', **templateData)
@@ -153,7 +171,6 @@ def load_log():
     while (True):
         with open("httprunner.log", 'r') as f:
             log = f.read()
-            log = log.replace('\n','')
         time.sleep(3)
 
 
@@ -165,9 +182,12 @@ def hrun_start(env_name):
     command = "hrun " + testsuites + " --report-file " + save_report + "" " > httprunner.log"
     subprocess.Popen(command, shell=True,
                      stdout=subprocess.PIPE)
-#获取当前时间
+
+
+# 获取当前时间
 def get_now_time():
     return time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+
 
 if __name__ == '__main__':
     init_log_file()

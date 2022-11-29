@@ -3,7 +3,7 @@ __pycache__/*
 .python-version
 .idea
 har
-#templates/reports/*
-#logs/*
-#script/*
-#env
+templates/reports/*
+logs/*
+script/*
+env
