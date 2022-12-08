@@ -1,6 +1,10 @@
 基于httprunner+flask的接口自动化测试平台
 
+环境安装：pip install requests Flask httprunner==3.0.0 clickhouse-driver python-dotenv PyMySQL。  其他根据需要自定义安装。
+
 api 文件夹：存储接口定义描述,用例的数据，用例的执行逻辑，以yaml文件的形式展现，保存的是一个接口的最小执行单元
+
+cases_bak 文件夹: 上传的用例集合会保存在这里，用例集合内容主要为api、testcases、testsuites、debugtalk.py
 
 env 文件夹: 存放不同测试环境的配置文件，用于切换,此配置文件是用于httprunner的
 
