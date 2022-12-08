@@ -3,6 +3,61 @@ config:
     setup_hooks:
         - ${sleep(3)}
 testcases:
+#-
+#    name: 调试
+#    testcase: testcases/product_testcases.yml
+
 -
-    name: 调试
-    testcase: testcases/debug.yml
+    name: 首页
+    testcase: testcases/home_testcases.yml
+
+-
+    name: 产品管理
+    testcase: testcases/product_testcases.yml
+    parameters:
+        productCode: ["A","123456789000"]
+        productName: ["code为单个字符","code长字符"]
+-
+    name: 设备管理
+    testcase: testcases/sensor_testcases.yml
+    parameters:
+        address: [""]
+        parentSensorId: [""]
+        areaId: [""]
+        dataCode: [""]
+        groupId: [""]
+        onOrOff: [""]
+        orgId: [""]
+        sensorName: [""]
+        sensorTypeCode: [""]
+        vendorCode: [""]
+-
+    name: 分组管理
+    testcase: testcases/group_testcases.yml
+    parameters:
+        groupName: ["自动化测试"]
+
+-
+    name: 数据接入
+    testcase: testcases/dataAccess_testcases.yml
+
+-
+    name: 事件告警
+    testcase: testcases/eventMessage_testcases.yml
+
+-
+    name: 日志数据共享
+    testcase: testcases/logInfoShare_testcases.yml
+
+-
+    name: 设备数据共享
+    testcase: testcases/sensorInfoShare_testcases.yml
+
+-
+    name: 设备模拟
+    testcase: testcases/sensorAccess_testcases.yml
+
+-
+    name: 物模型管理
+    testcase: testcases/physicalModelInfo_testcases.yml
+

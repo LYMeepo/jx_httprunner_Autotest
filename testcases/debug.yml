@@ -4,8 +4,13 @@ config:
 
 teststeps:
 -
-    name: 百度
-    api: api\baidu.yml
+    name: 登录
+    api: api/auth_user_login.yml
+    extract:
+          - token: content.data.token
+          - userCode: content.data.userCode
 
-
+-
+    name: 设备总量
+    api: api/dataStatistics/sensor_dataStatistics_findLogQualityAnalysis.yml
 

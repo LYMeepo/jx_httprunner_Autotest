@@ -5,25 +5,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href=" {{ url_for('static', filename='css/style.css') }}">
+
 </head>
 <body>
-
-{% set title='环境配置添加.' %}
+{% set title='用例管理.' %}
 {% include "nav.html" %}
-
 
     <div class="overlay"></div>
     <div class="container">
         <div class="row description align-items-center justify-content-center">
             <div class="col-md-8 text-center">
                 <div class="text">
-                    <form method="post" action="{{ path }}/addenv_success">
-                        <input type="text" name="env_name" class="btn btn-dark px-5 py-4 mb-2" placeholder="请输入配置文件名">
-                        <textarea name="env_content" style="width: 100%;height: 400px" class="btn-dark px-5 py-4 mb-2"
-                                  placeholder="配置文件详情,不要空行"></textarea>
-                        <input type="submit" name="env_sumbit" value="提交" class="btn btn-dark px-5 py-4 mb-2">
+                    <form method="post" action="{{ path }}/api_add_success" enctype="multipart/form-data">
+                    　　　<input type="file" id="chooseFile" name="file" accept=".zip" title="请选择zip文件"/></p>
+                    　　　<input type="submit" value="上传" class="btn btn-dark px-5 py-4 mb-2" />
                     </form>
-
                 </div>
             </div>
         </div>

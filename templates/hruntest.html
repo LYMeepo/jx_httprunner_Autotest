@@ -11,8 +11,6 @@
 {% set title='自动化执行.' %}
 {% include "nav.html" %}
 
-<section class="hero-wrap" style="background-image: url(../static/images/bg_1.jpg);"
-         data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row description align-items-center justify-content-center">
@@ -20,8 +18,18 @@
                 <div class="text">
                     <h4 class="mb-5">执行自动化：</h4>
                     <form method="post" action="{{ path }}/hruntest_success">
+                        环境配置：
                         <select name="sel_env" id="sel_env" class="btn btn-dark px-5 py-4 mb-2">
-                        </select>
+                            {% for env in envs %}
+                                    <option> {{ env }} </option>
+                            {% endfor %}
+                        </select></p>
+                        测试集合配置：
+                        <select name="sel_cases" id="sel_cases" class="btn btn-dark px-5 py-4 mb-2">
+                            {% for case in cases %}
+                                    <option> {{ case }} </option>
+                            {% endfor %}
+                        </select></p>
                         <input type="submit" name="btn" value="执行" class="btn btn-dark px-5 py-4 mb-2">
                     </form>
                 </div>
@@ -31,13 +39,3 @@
 </section>
 </body>
 </html>
-<script type="text/javascript">
-    var envs =
-    {{envs|tojson}}
-    var div = document.getElementById("sel_env")
-    var a = ""
-    for (var i = 0; i < envs.length; i++) {
-        a += "<option>" + envs[i] + "</option>"
-    }
-    div.innerHTML = a
-</script>
